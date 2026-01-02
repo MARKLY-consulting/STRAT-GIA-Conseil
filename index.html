@@ -277,6 +277,117 @@
             flex-shrink: 0;
         }
 
+        /* ===== FORM STYLES ===== */
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            margin-top: 50px;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .form-header h3 {
+            font-size: 2.2rem;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+
+        .form-header p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 50px 40px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 30px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--primary-blue);
+            font-size: 1.1rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+            background-color: #f8f9fa;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 180px;
+            resize: vertical;
+        }
+
+        .name-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-submit {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .form-submit .btn {
+            padding: 18px 50px;
+            font-size: 1.2rem;
+            min-width: 200px;
+        }
+
+        .contact-details-side {
+            padding: 20px;
+        }
+
+        .availability-note {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 40px;
+            box-shadow: var(--shadow);
+        }
+
+        .availability-note h4 {
+            color: var(--accent-gold);
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+
+        .availability-note p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 10px;
+        }
+
         /* ===== FOOTER ===== */
         footer {
             background-color: var(--dark-bg);
@@ -320,6 +431,18 @@
         }
 
         /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .name-group {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
         @media (max-width: 768px) {
             h1 {
                 font-size: 2.5rem;
@@ -339,6 +462,26 @@
             
             section {
                 padding: 70px 0;
+            }
+            
+            .contact-form {
+                padding: 30px 25px;
+            }
+            
+            .form-header h3 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .btn {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+            
+            .form-submit .btn {
+                width: 100%;
+                padding: 15px;
             }
         }
     </style>
@@ -441,42 +584,86 @@
             <h2 class="text-center">Contactez-nous</h2>
             <p class="text-center" style="max-width: 800px; margin: 0 auto 50px;">Discutons de vos projets et objectifs.</p>
             
-            <div class="contact-info">
-                <div class="contact-item">
-                    <div class="contact-icon">
-                        <i class="fas fa-envelope"></i>
-                    </div>
-                    <div class="contact-details">
-                        <h4>Email</h4>
-                        <p>oulkaidkhadija4@gmail.com</p>
-                    </div>
-                </div>
-                
-                <div class="contact-item">
-                    <div class="contact-icon">
-                        <i class="fas fa-phone"></i>
-                    </div>
-                    <div class="contact-details">
-                        <h4>Téléphone</h4>
-                        <p>+33 6 12 34 56 78</p>
-                    </div>
-                </div>
-                
-                <div class="contact-item">
-                    <div class="contact-icon">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <div class="contact-details">
-                        <h4>Zone d'Intervention</h4>
-                        <p>Déplacement dans toute la région</p>
-                    </div>
-                </div>
+            <div class="form-header">
+                <h3>Contact Us</h3>
+                <p>Please fill this form in a decent manner</p>
             </div>
             
-            <div class="text-center" style="margin-top: 60px;">
-                <a href="mailto:oulkaidkhadija4@gmail.com" class="btn">
-                    <i class="fas fa-paper-plane"></i> Envoyer un email
-                </a>
+            <div class="contact-wrapper">
+                <!-- FORMULAIRE DE CONTACT -->
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="name-group">
+                            <div class="form-group">
+                                <label for="firstName">Prénom *</label>
+                                <input type="text" id="firstName" name="firstName" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="lastName">Nom *</label>
+                                <input type="text" id="lastName" name="lastName" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">E-mail *</label>
+                            <input type="email" id="email" name="email" placeholder="example@example.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" placeholder="Votre message ici..." required></textarea>
+                        </div>
+                        
+                        <div class="form-submit">
+                            <button type="submit" class="btn">
+                                <i class="fas fa-paper-plane"></i> SOUMETTRE
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- INFORMATIONS DE CONTACT -->
+                <div class="contact-details-side">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Email</h4>
+                                <p>oulkaidkhadija4@gmail.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Téléphone</h4>
+                                <p>+33 6 12 34 56 78</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Zone d'Intervention</h4>
+                                <p>Déplacement dans toute la région</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="availability-note">
+                        <h4>Disponibilité</h4>
+                        <p><i class="fas fa-calendar-alt"></i> Lundi - Vendredi: 8h - 19h</p>
+                        <p><i class="fas fa-video"></i> Réunions à distance disponibles</p>
+                        <p><i class="fas fa-clock"></i> Sur rendez-vous uniquement</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -495,7 +682,7 @@
                     <p><i class="fas fa-envelope"></i> oulkaidkhadija4@gmail.com</p>
                     <p><i class="fas fa-phone"></i> +33 6 12 34 56 78</p>
                     <p><i class="fas fa-map-marker-alt"></i> Déplacement régional</p>
-                    <p><i class="fas fa-clock"></i> Sur rendez-vous</p>
+                    <p><i class="fas fa-clock"></i> Sur rendez-vous uniquement</p>
                 </div>
             </div>
             
@@ -522,6 +709,35 @@
                     });
                 }
             });
+        });
+
+        // Gestion du formulaire
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Récupération des valeurs du formulaire
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            // Validation basique
+            if (!firstName || !lastName || !email || !message) {
+                alert('Veuillez remplir tous les champs obligatoires.');
+                return;
+            }
+            
+            // Simulation d'envoi du formulaire
+            console.log('Formulaire soumis:');
+            console.log('Nom complet:', firstName + ' ' + lastName);
+            console.log('Email:', email);
+            console.log('Message:', message);
+            
+            // Message de confirmation
+            alert('Merci ' + firstName + ' ! Votre message a été envoyé avec succès. Nous vous répondrons dans les plus brefs délais.');
+            
+            // Réinitialisation du formulaire
+            this.reset();
         });
     </script>
 </body>
