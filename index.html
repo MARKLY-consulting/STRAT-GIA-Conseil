@@ -388,6 +388,27 @@
             margin-bottom: 10px;
         }
 
+        /* ===== SUCCESS MESSAGE ===== */
+        .success-message {
+            display: none;
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 20px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         /* ===== FOOTER ===== */
         footer {
             background-color: var(--dark-bg);
@@ -621,6 +642,14 @@
                             </button>
                         </div>
                     </form>
+                    
+                    <!-- Message de succès -->
+                    <div id="successMessage" class="success-message">
+                        <i class="fas fa-check-circle fa-2x" style="margin-bottom: 15px;"></i>
+                        <h4 style="color: white; margin-bottom: 10px;">Message envoyé avec succès !</h4>
+                        <p>Votre message a été transféré vers votre client de messagerie.</p>
+                        <p>Veuillez vérifier votre boîte de réception pour finaliser l'envoi.</p>
+                    </div>
                 </div>
                 
                 <!-- INFORMATIONS DE CONTACT -->
@@ -716,28 +745,53 @@
             e.preventDefault();
             
             // Récupération des valeurs du formulaire
-            const firstName = document.getElementById('firstName').value;
-            const lastName = document.getElementById('lastName').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
             
-            // Validation basique
+            // Validation
             if (!firstName || !lastName || !email || !message) {
                 alert('Veuillez remplir tous les champs obligatoires.');
                 return;
             }
             
-            // Simulation d'envoi du formulaire
-            console.log('Formulaire soumis:');
-            console.log('Nom complet:', firstName + ' ' + lastName);
-            console.log('Email:', email);
-            console.log('Message:', message);
+            // Validation email simple
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Veuillez entrer une adresse email valide.');
+                return;
+            }
             
-            // Message de confirmation
-            alert('Merci ' + firstName + ' ! Votre message a été envoyé avec succès. Nous vous répondrons dans les plus brefs délais.');
+            // Construction du mailto avec les données du formulaire
+            const subject = `Demande de contact de ${firstName} ${lastName} - STRATÉGIA Conseil`;
+            const body = `Bonjour,\n\nNom: ${firstName} ${lastName}\nEmail: ${email}\n\nMessage:\n${message}\n\nCordialement,\n${firstName} ${lastName}`;
             
-            // Réinitialisation du formulaire
-            this.reset();
+            // Encodage pour URL
+            const encodedSubject = encodeURIComponent(subject);
+            const encodedBody = encodeURIComponent(body);
+            
+            // Création du lien mailto
+            const mailtoLink = `mailto:oulkaidkhadija4@gmail.com?subject=${encodedSubject}&body=${encodedBody}`;
+            
+            // Afficher le message de succès
+            const successMessage = document.getElementById('successMessage');
+            successMessage.classList.add('show');
+            
+            // Masquer le formulaire
+            this.style.display = 'none';
+            
+            // Ouvrir le client de messagerie
+            setTimeout(() => {
+                window.location.href = mailtoLink;
+            }, 1500);
+            
+            // Réinitialiser après 10 secondes
+            setTimeout(() => {
+                successMessage.classList.remove('show');
+                this.style.display = 'block';
+                this.reset();
+            }, 10000);
         });
     </script>
 </body>
